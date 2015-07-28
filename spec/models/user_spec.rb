@@ -2,11 +2,12 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  name            :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string(255)
 #
 
 require 'spec_helper'
@@ -87,4 +88,30 @@ describe User do
 		before { @user.password = @user.password_confirmation = "a" * 5 }
 		it { should be_invalid }
 	end
+
+describe "User pages" do
+	subject { page }
+		describe "signup" do
+		before { visit signup_path }
+		let(:submit) { "Create my account" }
+			describe "with invalid information" do
+				it "should not create a user" do
+				expect { click_button submit }.not_to change(User, :count)
+				end
+			end
+			describe "with valid information" do
+				before do
+				fill_in "Name", with: "Example User"
+				fill_in "Email", with: "user@example.com"
+				fill_in "Password", with: "foobar"
+				fill_in "Confirmation", with: "foobar"
+				end
+				it "should create a user" do
+				expect { click_button submit }.to change(User, :count).by(1)
+				end
+			end
+		end
+	end
 end	
+
+	
