@@ -2,6 +2,7 @@ DemoAppSample::Application.routes.draw do
   get "users/new"
 resources :users
 resources :sessions, only: [:new, :create, :destroy]
+resources :microposts, only: [:create, :destroy,:edit , :show]
 
 root to: 'static_pages#home'
 match '/signup', to: 'users#new'
@@ -13,6 +14,11 @@ match '/contact', to: 'static_pages#contact'
 match '/signup', to: 'users#new'
 match '/signin', to: 'sessions#new'
 match '/signout', to: 'sessions#destroy', via: :delete
+
+match '/editmicropost', to: 'microposts#edit'
+match '/showmicropost', to: 'microposts#show'
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
