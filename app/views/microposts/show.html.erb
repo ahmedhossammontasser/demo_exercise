@@ -1,10 +1,12 @@
-<% provide(:title, @micropost) %>
+<% provide(:title, @micropost.title) %>
 <div class="row">
 	<aside class="span4">
 		<section>
 		<h1>
 		<%= @micropost.title%>
 		</h1>
+		<%= @micropost.content%>
+
 		</section>
 	</aside>
 
